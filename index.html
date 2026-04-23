@@ -598,6 +598,15 @@
       transition: filter .25s;
     }
     [data-layer]:hover { filter: brightness(1.4) drop-shadow(0 0 6px currentColor); }
+
+    /* ─── Print styles ──────────────────────────────────────── */
+    @media print {
+      #particles, #navbar, #backToTop, .scroll-cta { display: none !important; }
+      body { background: white !important; color: black !important; }
+      section { page-break-inside: avoid; }
+      .hero-battery { display: none; }
+      h1, h2, h3 { color: #000 !important; -webkit-text-fill-color: #000 !important; }
+    }
   </style>
 </head>
 <body>
@@ -614,6 +623,7 @@
     <a href="#charge-section">Lade-Zyklus</a>
     <a href="#why-lithium">Warum Li?</a>
     <a href="#future">Zukunft</a>
+    <a href="#facts">Facts</a>
     <a href="#download" style="color:var(--accent);font-weight:700;">📄 PDF</a>
   </div>
 </nav>
@@ -1051,6 +1061,54 @@
   </div>
 </section>
 
+<!-- ═══ FUN FACTS ════════════════════════════════════════════ -->
+<section id="facts" style="background:var(--bg);">
+  <div class="container">
+    <h2>💡 Wusstest du schon?</h2>
+    <div class="reveal" style="max-width:900px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
+        
+        <div style="background:var(--surface);border-radius:var(--radius);padding:24px;border-left:4px solid var(--accent);transition:transform .3s,box-shadow .3s;">
+          <div style="font-size:2.5rem;margin-bottom:12px;">🏆</div>
+          <h3 style="color:var(--accent);font-size:1.2rem;margin-bottom:8px;">Nobelpreis 2019</h3>
+          <p style="color:var(--muted);font-size:0.9rem;">Die Entwickler der Li-Ion-Batterie (Goodenough, Whittingham, Yoshino) erhielten den Chemie-Nobelpreis für ihre revolutionäre Arbeit!</p>
+        </div>
+
+        <div style="background:var(--surface);border-radius:var(--radius);padding:24px;border-left:4px solid var(--green);transition:transform .3s,box-shadow .3s;">
+          <div style="font-size:2.5rem;margin-bottom:12px;">🔋</div>
+          <h3 style="color:var(--green);font-size:1.2rem;margin-bottom:8px;">Hohe Energiedichte</h3>
+          <p style="color:var(--muted);font-size:0.9rem;">Li-Ion-Batterien haben eine 3-4x höhere Energiedichte als herkömmliche Blei-Säure-Batterien – daher ideal für E-Autos!</p>
+        </div>
+
+        <div style="background:var(--surface);border-radius:var(--radius);padding:24px;border-left:4px solid var(--yellow);transition:transform .3s,box-shadow .3s;">
+          <div style="font-size:2.5rem;margin-bottom:12px;">♻️</div>
+          <h3 style="color:var(--yellow);font-size:1.2rem;margin-bottom:8px;">Recycling</h3>
+          <p style="color:var(--muted);font-size:0.9rem;">Bis zu 95% der Materialien in Li-Ion-Batterien können recycelt werden – wichtig für Nachhaltigkeit und Ressourcenschonung!</p>
+        </div>
+
+        <div style="background:var(--surface);border-radius:var(--radius);padding:24px;border-left:4px solid #6b5aed;transition:transform .3s,box-shadow .3s;">
+          <div style="font-size:2.5rem;margin-bottom:12px;">⚡</div>
+          <h3 style="color:#6b5aed;font-size:1.2rem;margin-bottom:8px;">Schnelles Laden</h3>
+          <p style="color:var(--muted);font-size:0.9rem;">Moderne Li-Ion-Batterien können in nur 30 Minuten auf 80% aufgeladen werden – praktisch für den Alltag!</p>
+        </div>
+
+        <div style="background:var(--surface);border-radius:var(--radius);padding:24px;border-left:4px solid #ff6b6b;transition:transform .3s,box-shadow .3s;">
+          <div style="font-size:2.5rem;margin-bottom:12px;">🌡️</div>
+          <h3 style="color:#ff6b6b;font-size:1.2rem;margin-bottom:8px;">Temperaturempfindlich</h3>
+          <p style="color:var(--muted);font-size:0.9rem;">Extreme Kälte oder Hitze können die Leistung und Lebensdauer von Li-Ion-Batterien beeinträchtigen. Idealer Bereich: 15-25°C.</p>
+        </div>
+
+        <div style="background:var(--surface);border-radius:var(--radius);padding:24px;border-left:4px solid #00c6ff;transition:transform .3s,box-shadow .3s;">
+          <div style="font-size:2.5rem;margin-bottom:12px;">🚗</div>
+          <h3 style="color:#00c6ff;font-size:1.2rem;margin-bottom:8px;">E-Mobilität</h3>
+          <p style="color:var(--muted);font-size:0.9rem;">Ein durchschnittliches Elektroauto enthält etwa 7.000 einzelne Lithium-Ionen-Zellen in seiner Batterie!</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ MOLVIEW TOOL ═════════════════════════════════════════ -->
 <section id="molview" style="background:var(--surface2);padding:60px 0;">
   <div class="container">
@@ -1168,7 +1226,8 @@
   <p>⚡ <strong>Lithium-Ionen-Batterie: Chemie, Funktionsweise, Risiken und Zukunft</strong><br>
   Eine interaktive Bildungsressource von <strong>Leonard Fritsch</strong> (B1 Chemie-Kurs)<br>
   Märkisches Gymnasium Iserlohn | 03.03.2026<br>
-  <span style="font-size:0.9rem;color:var(--muted);">🏫 MGI — Tradition seit 1830, Innovation für die Zukunft!</span></p>
+  <span style="font-size:0.9rem;color:var(--muted);">🏫 MGI — Tradition seit 1830, Innovation für die Zukunft!</span><br>
+  <span style="font-size:0.75rem;color:var(--muted);margin-top:8px;display:inline-block;">💡 Tastatur-Shortcuts: <kbd style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-family:monospace;">H</kbd> = Hoch, <kbd style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-family:monospace;">D</kbd> = PDF Download</span></p>
 </footer>
 
 <!-- ═══ BACK TO TOP BUTTON ════════════════════════════════════ -->
@@ -1423,6 +1482,21 @@ document.querySelectorAll('.tl-item').forEach(el=>tlObserver.observe(el));
   
   backToTop.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+/* ─── Keyboard shortcuts ────────────────────────────────────── */
+(function(){
+  document.addEventListener('keydown', (e) => {
+    // Press 'H' to go to top
+    if (e.key === 'h' || e.key === 'H') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // Press 'D' to download PDF
+    if (e.key === 'd' || e.key === 'D') {
+      const pdfLink = document.querySelector('a[href="Lithium- Ionen Batterie.pdf"]');
+      if (pdfLink) pdfLink.click();
+    }
   });
 })();
 </script>
