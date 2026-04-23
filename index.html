@@ -1488,12 +1488,20 @@ document.querySelectorAll('.tl-item').forEach(el=>tlObserver.observe(el));
 /* ─── Keyboard shortcuts ────────────────────────────────────── */
 (function(){
   document.addEventListener('keydown', (e) => {
+    // Don't trigger shortcuts if user is typing in an input field
+    const target = e.target;
+    if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
+      return;
+    }
+    
     // Press 'H' to go to top
     if (e.key === 'h' || e.key === 'H') {
+      e.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     // Press 'D' to download PDF
     if (e.key === 'd' || e.key === 'D') {
+      e.preventDefault();
       const pdfLink = document.querySelector('a[href="Lithium- Ionen Batterie.pdf"]');
       if (pdfLink) pdfLink.click();
     }
