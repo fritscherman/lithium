@@ -886,9 +886,9 @@
   resize();
   window.addEventListener('resize', resize);
 
-  const N = 60;
-  for(let i=0;i<N;i++) particles.push({
-    x: Math.random()*2000, y: Math.random()*1200,
+  const NUM_PARTICLES = 60;
+  for(let i=0;i<NUM_PARTICLES;i++) particles.push({
+    x: Math.random()*W, y: Math.random()*H,
     vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3,
     r: Math.random()*2+1,
     alpha: Math.random()*.6+.1
@@ -906,8 +906,8 @@
       ctx.fill();
     });
     // draw connecting lines
-    for(let i=0;i<N;i++){
-      for(let j=i+1;j<N;j++){
+    for(let i=0;i<NUM_PARTICLES;i++){
+      for(let j=i+1;j<NUM_PARTICLES;j++){
         const dx=particles[i].x-particles[j].x;
         const dy=particles[i].y-particles[j].y;
         const d=Math.sqrt(dx*dx+dy*dy);
@@ -1023,8 +1023,6 @@ document.querySelectorAll('.tl-item').forEach(el=>tlObserver.observe(el));
 
   let state     = 0;   // 0=empty anode / full cathode, 8=full anode / empty cathode
   let animating = false;
-  let rafId     = null;
-  const ionPool = [];
 
   function setLayers(){
     anodeLayers .forEach((l,i)=>l.classList.toggle('filled', i < state));
