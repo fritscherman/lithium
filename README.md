@@ -3,7 +3,7 @@
 Ein interaktiver Lithium-Batterie-Erklärer (Interactive Lithium Battery Explainer)
 
 ## Autor
-**Leonard Firtsch**  
+**Leonard Fritsch**  
 Märkisches Gymnasium Iserlohn
 
 ## Beschreibung
