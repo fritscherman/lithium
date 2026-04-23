@@ -1,2 +1,29 @@
-# lithium
-Interact lithium expaliner
+# Lithium-Batterie-Explorer
+
+Ein interaktiver Lithium-Batterie-Erklärer (Interactive Lithium Battery Explainer)
+
+## Autor
+**Leonard Firtsch**  
+Märkisches Gymnasium Iserlohn
+
+## Beschreibung
+Dieses Projekt ist eine umfassende, interaktive Bildungsressource über Lithium-Ionen-Batterien auf Deutsch. Es erklärt die Funktionsweise, Anatomie, Geschichte und Spezifikationen dieser revolutionären Energiespeichertechnologie.
+
+Die Seite enthält:
+- Interaktive SVG-Visualisierung des Batterieaufbaus
+- Live-Animation des Lade-/Entladevorgangs
+- Detaillierte Beschreibungen aller Komponenten
+- Historische Zeitleiste der Batterieentwicklung
+- Technische Spezifikationen und Vor-/Nachteile
+
+Entwickelt am **Märkisches Gymnasium Iserlohn** – wo Tradition seit 1830 auf Innovation für die Zukunft trifft! 🏫✨
+
+## Features
+- Vollständig auf Deutsch übersetzt
+- Erweiterte, detaillierte wissenschaftliche Informationen
+- Interaktive Animationen und Visualisierungen
+- Responsive Design
+- Particle-Effekte im Hintergrund
+
+## Nutzung
+Öffne einfach die `index.html` Datei in einem modernen Webbrowser.
