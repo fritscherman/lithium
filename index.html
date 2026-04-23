@@ -14,15 +14,15 @@
       --bg:        #0a0e27;
       --surface:   #141b3a;
       --surface2:  #1a2347;
-      --accent:    #00d4ff;
-      --accent2:   #6b5aed;
+      --accent:    #ff8c42;
+      --accent2:   #ff6b35;
       --green:     #00ff88;
       --red:       #ff4757;
       --yellow:    #ffc107;
       --text:      #f0f4ff;
       --muted:     #8892b0;
       --radius:    12px;
-      --glow:      0 0 20px rgba(0,212,255,.5);
+      --glow:      0 0 20px rgba(255,140,66,.5);
     }
 
     html { scroll-behavior: smooth; }
@@ -599,6 +599,7 @@
     <div class="cap"></div>
   </div>
   <h1>Lithium-Ionen-Batterie</h1>
+  <p style="font-size: clamp(1rem, 2.5vw, 1.4rem); margin-bottom: 0.5rem;">von <strong style="color: var(--accent);">Leonard Firtsch</strong></p>
   <p>Chemie, Funktionsweise, Risiken und Zukunft – Die wiederaufladbare Energiequelle in deinem Smartphone, Elektroauto und die Zukunft sauberer Energie. Entdecke, wie sie funktioniert – präsentiert vom Märkischen Gymnasium Iserlohn, wo Innovation auf Tradition trifft! 🏫✨</p>
   <a href="#anatomy" class="scroll-cta">Erkunden ↓</a>
 </section>
@@ -1014,6 +1015,29 @@
           Bis 2030 werden Batteriekosten voraussichtlich auf unter 50 $/kWh sinken, Energiedichten von 400+ Wh/kg erreicht und Ladezeiten auf unter 10 Minuten reduziert. Die nächste Generation von Batterien wird sicherer, nachhaltiger und leistungsfähiger sein – und vielleicht wird der nächste Durchbruch ja von einem MGI-Absolventen erzielt! 🎓✨
         </p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MOLVIEW TOOL ═════════════════════════════════════════ -->
+<section id="molview" style="background:var(--surface2);padding:60px 0;">
+  <div class="container">
+    <h2>MolView – 3D Molekülbetrachter</h2>
+    <div class="reveal" style="max-width:900px;margin:0 auto;">
+      <p style="text-align:center;color:var(--muted);margin-bottom:20px;font-size:1rem;">
+        Nutze dieses Tool, um die chemischen Strukturen von Lithium-Verbindungen und anderen Molekülen in 3D zu erkunden.
+      </p>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius);box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+        <iframe 
+          src="https://molview.org/" 
+          style="width:100%;height:500px;border:none;border-radius:8px;"
+          title="MolView - Molekülbetrachter"
+          loading="lazy">
+        </iframe>
+      </div>
+      <p style="text-align:center;color:var(--muted);margin-top:16px;font-size:0.9rem;">
+        🔬 Tipp: Suche nach "lithium" oder "graphite" um relevante Strukturen zu sehen!
+      </p>
     </div>
   </div>
 </section>
