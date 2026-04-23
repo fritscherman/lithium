@@ -24,6 +24,9 @@ Entwickelt am **Märkisches Gymnasium Iserlohn** – wo Tradition seit 1830 auf 
 - Interaktive Animationen und Visualisierungen
 - Responsive Design
 - Particle-Effekte im Hintergrund
+- **PDF-Download der vollständigen Präsentation**
+- **Schnellnavigation zu allen Abschnitten**
+- **"Nach oben"-Button für einfaches Scrollen**
 
 ## Nutzung
 Öffne einfach die `index.html` Datei in einem modernen Webbrowser.

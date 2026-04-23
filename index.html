@@ -564,6 +564,34 @@
 
     @media(max-width:560px){ .nav-links { display: none; } }
 
+    /* ─── Back to Top Button ────────────────────────────────── */
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s, transform .3s, box-shadow .3s;
+      z-index: 999;
+      box-shadow: 0 4px 12px rgba(255,140,66,.4);
+    }
+    #backToTop.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #backToTop:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(255,140,66,.6);
+    }
+
     /* ─── Glow ring on hover for SVG parts ──────────────────── */
     [data-layer] {
       cursor: pointer;
@@ -586,6 +614,7 @@
     <a href="#charge-section">Lade-Zyklus</a>
     <a href="#why-lithium">Warum Li?</a>
     <a href="#future">Zukunft</a>
+    <a href="#download" style="color:var(--accent);font-weight:700;">📄 PDF</a>
   </div>
 </nav>
 
@@ -601,7 +630,10 @@
   <h1>Lithium-Ionen-Batterie</h1>
   <p style="font-size: clamp(1rem, 2.5vw, 1.4rem); margin-bottom: 0.5rem;">von <strong style="color: var(--accent);">Leonard Fritsch</strong></p>
   <p>Chemie, Funktionsweise, Risiken und Zukunft – Die wiederaufladbare Energiequelle in deinem Smartphone, Elektroauto und die Zukunft sauberer Energie. Entdecke, wie sie funktioniert – präsentiert vom Märkischen Gymnasium Iserlohn, wo Innovation auf Tradition trifft! 🏫✨</p>
-  <a href="#anatomy" class="scroll-cta">Erkunden ↓</a>
+  <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 24px;">
+    <a href="#anatomy" class="scroll-cta">Erkunden ↓</a>
+    <a href="Lithium- Ionen Batterie.pdf" download class="scroll-cta" style="background: var(--accent); color: #000; font-weight: 600;">📄 PDF herunterladen</a>
+  </div>
 </section>
 
 <!-- ═══ ANATOMY ══════════════════════════════════════════════ -->
@@ -1062,6 +1094,29 @@
   </div>
 </section>
 
+<!-- ═══ PRESENTATION DOWNLOAD ════════════════════════════════ -->
+<section id="download" style="background:var(--bg);">
+  <div class="container">
+    <h2>📄 Präsentation herunterladen</h2>
+    <div class="reveal" style="text-align:center;">
+      <div style="background:var(--surface2);border:2px solid var(--accent);border-radius:var(--radius);padding:40px;max-width:700px;margin:0 auto;box-shadow:var(--glow);">
+        <div style="font-size:4rem;margin-bottom:16px;">📊</div>
+        <h3 style="color:var(--accent);font-size:1.5rem;margin-bottom:12px;">Lithium-Ionen-Batterie: Vollständige Präsentation</h3>
+        <p style="color:var(--muted);margin-bottom:28px;font-size:1rem;">
+          Lade die vollständige PDF-Präsentation herunter – perfekt zum Lernen, für Referate oder als Nachschlagewerk!<br>
+          <strong style="color:var(--text);">Alle Informationen kompakt in einem Dokument.</strong>
+        </p>
+        <a href="Lithium- Ionen Batterie.pdf" download class="btn" style="background:var(--accent);color:#000;border-color:var(--accent);font-size:1.1rem;padding:14px 36px;display:inline-block;text-decoration:none;font-weight:700;">
+          💾 PDF-Präsentation herunterladen
+        </a>
+        <p style="margin-top:20px;font-size:0.85rem;color:var(--muted);">
+          <em>Erstellt von Leonard Fritsch für den B1 Chemie-Kurs<br>Märkisches Gymnasium Iserlohn | 03.03.2026</em>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ QUELLEN ══════════════════════════════════════════════ -->
 <section id="sources" style="background:var(--surface);">
   <div class="container">
@@ -1115,6 +1170,9 @@
   Märkisches Gymnasium Iserlohn | 03.03.2026<br>
   <span style="font-size:0.9rem;color:var(--muted);">🏫 MGI — Tradition seit 1830, Innovation für die Zukunft!</span></p>
 </footer>
+
+<!-- ═══ BACK TO TOP BUTTON ════════════════════════════════════ -->
+<button id="backToTop" title="Nach oben">↑</button>
 
 <!-- ═══ SCRIPTS ══════════════════════════════════════════════ -->
 <script>
@@ -1349,6 +1407,23 @@ document.querySelectorAll('.tl-item').forEach(el=>tlObserver.observe(el));
   });
 
   setLayers();
+})();
+
+/* ─── Back to Top Button ────────────────────────────────────── */
+(function(){
+  const backToTop = document.getElementById('backToTop');
+  
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      backToTop.classList.add('visible');
+    } else {
+      backToTop.classList.remove('visible');
+    }
+  });
+  
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 })();
 </script>
 </body>
