@@ -11,18 +11,18 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #05080f;
-      --surface:   #0d1526;
-      --surface2:  #122040;
-      --accent:    #00c6ff;
-      --accent2:   #7b2ff7;
-      --green:     #00e676;
-      --red:       #ff5252;
-      --yellow:    #ffd740;
-      --text:      #e0eaff;
-      --muted:     #7a90b8;
+      --bg:        #0a0e27;
+      --surface:   #141b3a;
+      --surface2:  #1a2347;
+      --accent:    #00d4ff;
+      --accent2:   #6b5aed;
+      --green:     #00ff88;
+      --red:       #ff4757;
+      --yellow:    #ffc107;
+      --text:      #f0f4ff;
+      --muted:     #8892b0;
       --radius:    12px;
-      --glow:      0 0 18px rgba(0,198,255,.45);
+      --glow:      0 0 20px rgba(0,212,255,.5);
     }
 
     html { scroll-behavior: smooth; }
@@ -71,7 +71,7 @@
       justify-content: center;
       text-align: center;
       gap: 24px;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, #0a2545 0%, var(--bg) 70%);
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, #1a2d5a 0%, var(--bg) 70%);
     }
 
     #hero h1 {
@@ -276,6 +276,8 @@
 
     /* ─── Charge / Discharge animation ─────────────────────── */
     #charge-section { background: var(--surface); }
+    #redox-principle { background: var(--surface); }
+    #specs { background: var(--surface); }
 
     .charge-controls {
       display: flex; gap: 16px; justify-content: center; margin-bottom: 40px;
@@ -579,10 +581,11 @@
   <span class="nav-logo">⚡ Lithium-Batterie | MGI</span>
   <div class="nav-links">
     <a href="#anatomy">Anatomie</a>
+    <a href="#redox-principle">Redox</a>
     <a href="#how">Funktionsweise</a>
     <a href="#charge-section">Lade-Zyklus</a>
-    <a href="#specs">Spezifikationen</a>
-    <a href="#history">Geschichte</a>
+    <a href="#why-lithium">Warum Li?</a>
+    <a href="#future">Zukunft</a>
   </div>
 </nav>
 
@@ -595,8 +598,8 @@
     </div>
     <div class="cap"></div>
   </div>
-  <h1>Lithium-Batterie</h1>
-  <p>Die wiederaufladbare Energiequelle in deinem Smartphone, Elektroauto und die Zukunft sauberer Energie. Entdecke, wie sie funktioniert – präsentiert vom Märkischen Gymnasium Iserlohn, wo Innovation auf Tradition trifft! 🏫✨</p>
+  <h1>Lithium-Ionen-Batterie</h1>
+  <p>Chemie, Funktionsweise, Risiken und Zukunft – Die wiederaufladbare Energiequelle in deinem Smartphone, Elektroauto und die Zukunft sauberer Energie. Entdecke, wie sie funktioniert – präsentiert vom Märkischen Gymnasium Iserlohn, wo Innovation auf Tradition trifft! 🏫✨</p>
   <a href="#anatomy" class="scroll-cta">Erkunden ↓</a>
 </section>
 
@@ -662,6 +665,58 @@
           <p>Ein Stahl- oder Aluminiumgehäuse (zylindrisch, prismatisch oder als Pouch) das alle Komponenten einschließt und mit externen Anschlüssen verbindet. Das Gehäuse muss hermetisch dicht sein, um Feuchtigkeit fernzuhalten und mechanische Stabilität zu gewährleisten.</p>
         </li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GRUNDPRINZIP - REDOX ════════════════════════════════ -->
+<section id="redox-principle">
+  <div class="container">
+    <h2>Das Grundprinzip: Redoxreaktion</h2>
+    <div class="reveal" style="max-width:900px;margin:0 auto;">
+      <p style="font-size:1.1rem;text-align:center;margin-bottom:32px;color:var(--muted);">
+        Die Grundlage jeder Batterie ist eine Redoxreaktion, bei der durch Elektronenabgabe und -aufnahme ein gerichteter Stromfluss entsteht.
+      </p>
+      
+      <div class="steps">
+        <div class="step-card">
+          <span class="step-icon">➖</span>
+          <h3>Oxidation (Anode)</h3>
+          <p><strong>Elektronenabgabe:</strong></p>
+          <p style="font-family:monospace;font-size:1.2rem;text-align:center;margin:16px 0;color:var(--accent);">Li → Li⁺ + e⁻</p>
+          <p>Lithium gibt Elektronen ab – der Start des Stromflusses. Diese Oxidationsreaktion findet an der Anode statt und ist die treibende Kraft für den Elektronenfluss im externen Stromkreis.</p>
+        </div>
+        
+        <div class="step-card">
+          <span class="step-icon">➕</span>
+          <h3>Reduktion (Kathode)</h3>
+          <p><strong>Elektronenaufnahme:</strong></p>
+          <p style="font-family:monospace;font-size:1.2rem;text-align:center;margin:16px 0;color:var(--red);">Metalloxid + Li⁺ + e⁻ → LiMetalloxid</p>
+          <p>Elektronen werden aufgenommen – die Reaktion ist abgeschlossen. An der Kathode findet die Reduktion statt, wo Lithium-Ionen und Elektronen wieder vereint werden.</p>
+        </div>
+        
+        <div class="step-card">
+          <span class="step-icon">⚡</span>
+          <h3>Elektronenfluss</h3>
+          <p>Elektronen bewegen sich außen im Stromkreis als gerichtete Bewegung – das ist der elektrische Strom, den wir nutzen. Die <strong>Potenzialdifferenz</strong> (Spannungsunterschied) zwischen Anode und Kathode erzeugt das chemische Potential, das diesen Fluss antreibt.</p>
+        </div>
+        
+        <div class="step-card">
+          <span class="step-icon">🔄</span>
+          <h3>Ionenbewegung</h3>
+          <p><strong>Ladungsausgleich im Inneren:</strong> Während Elektronen durch den externen Stromkreis fließen, wandern Li⁺-Ionen durch den Elektrolyten, um die elektrische Neutralität aufrechtzuerhalten. Dieser Ionentransport ist entscheidend für die Funktion der Batterie.</p>
+        </div>
+      </div>
+      
+      <div style="margin-top:40px;padding:24px;background:var(--surface2);border-radius:var(--radius);border-left:4px solid var(--accent);">
+        <h3 style="margin-bottom:12px;color:var(--accent);">Die Kausalkette</h3>
+        <ol style="line-height:2;font-size:1.05rem;">
+          <li><strong>Anode (Start):</strong> Lithium gibt Elektronen ab → Start des Stromflusses</li>
+          <li><strong>Elektronenfluss:</strong> Elektronen bewegen sich → elektrische Energie entsteht</li>
+          <li><strong>Kathode (Ziel):</strong> Elektronen werden aufgenommen → Reaktion abgeschlossen</li>
+          <li><strong>Ionenbewegung:</strong> Ladungsausgleich im Inneren durch Li⁺-Ionen</li>
+        </ol>
+      </div>
     </div>
   </div>
 </section>
@@ -870,10 +925,151 @@
   </div>
 </section>
 
+<!-- ═══ WARUM LITHIUM? ═══════════════════════════════════════ -->
+<section id="why-lithium" style="background:var(--surface);">
+  <div class="container">
+    <h2>Warum Lithium als Energieträger?</h2>
+    <div class="reveal" style="max-width:900px;margin:0 auto;">
+      <p style="font-size:1.1rem;text-align:center;margin-bottom:40px;color:var(--muted);">
+        Eigenschaften auf atomarer Ebene bestimmen die Leistung – Lithium ist das perfekte Element für moderne Energiespeicherung.
+      </p>
+      
+      <div class="steps">
+        <div class="step-card">
+          <span class="step-icon">⚛️</span>
+          <h3>Atomare Struktur</h3>
+          <p><strong>1 Valenzelektron</strong> – leicht abzugeben. Lithium steht in Gruppe 1 des Periodensystems und besitzt nur ein Elektron in seiner äußeren Schale, was es chemisch sehr reaktiv macht und die Elektronenabgabe erleichtert.</p>
+        </div>
+        
+        <div class="step-card">
+          <span class="step-icon">⚖️</span>
+          <h3>Geringe Masse</h3>
+          <p><strong>Leichtestes Metall</strong> (Atommasse 6,94 u) führt zu hoher Energiedichte. Eine Lithium-Ionen-Batterie kann bis zu 250 Wh/kg erreichen – deutlich mehr als andere Batterietechnologien.</p>
+        </div>
+        
+        <div class="step-card">
+          <span class="step-icon">⚡</span>
+          <h3>Elektrochemisches Potential</h3>
+          <p><strong>Sehr negatives Standardpotential</strong> (E° = -3,04 V) ermöglicht starke Elektronenabgabe. Dies führt zu höheren Zellspannungen (3,6-3,7 V) im Vergleich zu anderen Batterietechnologien.</p>
+        </div>
+        
+        <div class="step-card">
+          <span class="step-icon">🔄</span>
+          <h3>Interkalation</h3>
+          <p><strong>Reversible Einlagerung</strong> in Graphit ohne strukturelle Zerstörung. Lithium-Ionen können zwischen die Graphitschichten gleiten (Interkalation) und wieder herausgelöst werden – ein Prozess, der hunderte bis tausende Male wiederholt werden kann.</p>
+        </div>
+      </div>
+      
+      <div style="margin-top:32px;text-align:center;padding:20px;background:linear-gradient(135deg,var(--surface2),var(--bg));border-radius:var(--radius);">
+        <h3 style="color:var(--accent);margin-bottom:12px;">💡 Die wichtigsten Energieinnovationen</h3>
+        <p style="font-size:1.05rem;">
+          <strong>1970er:</strong> Grundidee | <strong>1980:</strong> Funktionsfähiger Prototyp | <strong>1991:</strong> Markteinführung
+        </p>
+        <p style="margin-top:12px;color:var(--muted);">
+          <strong>Schlüsselpersonen:</strong> John B. Goodenough, Stanley Whittingham, Akira Yoshino (Nobelpreis 2019)
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ZUKUNFT ══════════════════════════════════════════════ -->
+<section id="future">
+  <div class="container">
+    <h2>Zukunft der Energiespeicherung</h2>
+    <div class="reveal" style="max-width:900px;margin:0 auto;">
+      <p style="font-size:1.1rem;text-align:center;margin-bottom:40px;color:var(--muted);">
+        Die aktuelle Technologie ist nur ein Zwischenschritt auf dem Weg zu noch leistungsfähigeren und nachhaltigeren Energiespeichern.
+      </p>
+      
+      <div class="steps">
+        <div class="step-card">
+          <span class="step-icon">🔬</span>
+          <h3>Festkörperbatterien</h3>
+          <p><strong>Fester Elektrolyt</strong> ersetzt den flüssigen Elektrolyten und bietet höhere Sicherheit (keine Leckage, nicht brennbar), höhere Energiedichte (bis zu 500 Wh/kg) und längere Lebensdauer. Unternehmen wie QuantumScape und Toyota arbeiten an der Kommerzialisierung.</p>
+        </div>
+        
+        <div class="step-card">
+          <span class="step-icon">🧪</span>
+          <h3>Materialoptimierung</h3>
+          <p><strong>Weniger Kobalt:</strong> Reduktion oder Eliminierung von Kobalt (teuer, ethische Bedenken beim Abbau) durch Nickel-reiche Kathoden (NCA, NCMA) oder kobaltfreie Alternativen wie LFP. <strong>Alternative Materialien:</strong> Natrium-Ionen-Batterien für stationäre Speicher, Silizium-Anoden für 10x höhere Kapazität.</p>
+        </div>
+        
+        <div class="step-card">
+          <span class="step-icon">🌍</span>
+          <h3>Systemintegration</h3>
+          <p><strong>Energiespeicher für Netze:</strong> Große Batteriesysteme (100 MWh+) stabilisieren das Stromnetz und speichern überschüssige erneuerbare Energie. <strong>Vehicle-to-Grid (V2G):</strong> Elektroautos als mobile Energiespeicher, die Strom ins Netz zurückspeisen können.</p>
+        </div>
+        
+        <div class="step-card">
+          <span class="step-icon">♻️</span>
+          <h3>Recycling & Kreislaufwirtschaft</h3>
+          <p><strong>Verbesserte Recyclingverfahren:</strong> Hydrometallurgische und direkte Recycling-Methoden erreichen >95% Rückgewinnungsrate für Lithium, Kobalt und Nickel. <strong>Second-Life-Anwendungen:</strong> Ausgedi ente EV-Batterien werden als stationäre Speicher weitergenutzt.</p>
+        </div>
+      </div>
+      
+      <div style="margin-top:40px;padding:24px;background:linear-gradient(135deg,var(--surface2),var(--bg));border-radius:var(--radius);border:2px solid var(--accent);">
+        <h3 style="color:var(--accent);text-align:center;margin-bottom:16px;">🚀 Ausblick 2030+</h3>
+        <p style="font-size:1.05rem;line-height:1.8;">
+          Bis 2030 werden Batteriekosten voraussichtlich auf unter 50 $/kWh sinken, Energiedichten von 400+ Wh/kg erreicht und Ladezeiten auf unter 10 Minuten reduziert. Die nächste Generation von Batterien wird sicherer, nachhaltiger und leistungsfähiger sein – und vielleicht wird der nächste Durchbruch ja von einem MGI-Absolventen erzielt! 🎓✨
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUELLEN ══════════════════════════════════════════════ -->
+<section id="sources" style="background:var(--surface);">
+  <div class="container">
+    <h2>Quellen & Referenzen</h2>
+    <div class="reveal" style="max-width:800px;margin:0 auto;">
+      <div style="background:var(--surface2);padding:28px;border-radius:var(--radius);line-height:1.8;">
+        
+        <h3 style="color:var(--accent);margin-bottom:12px;font-size:1.2rem;">📹 Video</h3>
+        <p style="margin-bottom:24px;">
+          ZDF goes Schule: <a href="https://schule.zdf.de/video/lithium-ionen-batterie-creative-commons-clip-100" target="_blank" style="color:var(--accent);text-decoration:underline;">Lithium-Ionen-Batterie (Creative Commons Clip)</a>
+        </p>
+        
+        <h3 style="color:var(--accent);margin-bottom:12px;font-size:1.2rem;">📚 Fachliteratur & Institutionen</h3>
+        <ul style="margin-bottom:24px;padding-left:20px;">
+          <li>Nobel Prize Organization (2019): The Nobel Prize in Chemistry 2019 – Lithium-ion batteries</li>
+          <li>Fraunhofer-Gesellschaft: Forschung zu Energiespeichern und Batterietechnologien</li>
+          <li>Bundesministerium für Bildung und Forschung: Informationen zu Batterieforschung und Energiewende</li>
+        </ul>
+        
+        <h3 style="color:var(--accent);margin-bottom:12px;font-size:1.2rem;">🔬 Wissenschaftliche Grundlagen</h3>
+        <ul style="margin-bottom:24px;padding-left:20px;">
+          <li>Nature Energy: Artikel zu Lithium-Ionen-Batterien und Energiespeicherung</li>
+          <li>Science Magazine: Forschung zu elektrochemischen Prozessen</li>
+        </ul>
+        
+        <h3 style="color:var(--accent);margin-bottom:12px;font-size:1.2rem;">📖 Lehrmaterial & Grundlagen</h3>
+        <ul style="margin-bottom:24px;padding-left:20px;">
+          <li>Chemie.de: Grundlagen zu Redoxreaktionen und Batterien</li>
+          <li>Khan Academy: Erklärungen zu Redox und Elektrochemie</li>
+        </ul>
+        
+        <h3 style="color:var(--accent);margin-bottom:12px;font-size:1.2rem;">🎨 Visualisierungen & Modelle</h3>
+        <ul style="padding-left:20px;">
+          <li>MolView: Darstellung chemischer Strukturen</li>
+          <li>Wikipedia (Wikimedia Commons): Diagramme und Abbildungen</li>
+        </ul>
+        
+        <p style="margin-top:28px;text-align:center;font-size:0.95rem;color:var(--muted);">
+          Präsentiert von <strong>Leonard Firtsch</strong>, B1 Chemie-Kurs<br>
+          Märkisches Gymnasium Iserlohn | 03.03.2026
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ FOOTER ═══════════════════════════════════════════════ -->
 <footer>
-  <p>⚡ Lithium-Batterie-Explorer &mdash; erstellt für Bildungszwecke von Leonard Firtsch, Märkisches Gymnasium Iserlohn.<br>
-  Daten basieren auf öffentlich zugänglicher Fachliteratur. 🏫 MGI — Tradition seit 1830, Innovation für die Zukunft!</p>
+  <p>⚡ <strong>Lithium-Ionen-Batterie: Chemie, Funktionsweise, Risiken und Zukunft</strong><br>
+  Eine interaktive Bildungsressource von <strong>Leonard Firtsch</strong> (B1 Chemie-Kurs)<br>
+  Märkisches Gymnasium Iserlohn | 03.03.2026<br>
+  <span style="font-size:0.9rem;color:var(--muted);">🏫 MGI — Tradition seit 1830, Innovation für die Zukunft!</span></p>
 </footer>
 
 <!-- ═══ SCRIPTS ══════════════════════════════════════════════ -->
