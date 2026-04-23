@@ -24,9 +24,17 @@ Entwickelt am **Märkisches Gymnasium Iserlohn** – wo Tradition seit 1830 auf 
 - Interaktive Animationen und Visualisierungen
 - Responsive Design
 - Particle-Effekte im Hintergrund
-- **PDF-Download der vollständigen Präsentation**
-- **Schnellnavigation zu allen Abschnitten**
-- **"Nach oben"-Button für einfaches Scrollen**
+- **PDF-Download der vollständigen Präsentation** (direkter Download-Link im Hero-Bereich und eigene Sektion)
+- **Schnellnavigation zu allen Abschnitten** (Navbar mit allen Themen)
+- **"Nach oben"-Button für einfaches Scrollen** (erscheint beim Scrollen)
+- **"Wusstest du schon?"-Sektion** mit 6 interessanten Fakten über Lithium-Batterien
+- **Tastatur-Shortcuts** (H = Hoch scrollen, D = PDF herunterladen)
+- **Print-freundliche Styles** für optimale Ausdrucke
+- **MolView-Integration** zum Erkunden von 3D-Molekülstrukturen
 
 ## Nutzung
 Öffne einfach die `index.html` Datei in einem modernen Webbrowser.
+
+### Tastatur-Shortcuts
+- **H** - Zum Seitenanfang springen
+- **D** - PDF-Präsentation herunterladen
