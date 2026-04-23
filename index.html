@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lithium Battery Explorer</title>
+  <meta name="author" content="Leonard Firtsch, Märkisches Gymnasium Iserlohn" />
+  <meta name="description" content="Interaktiver Lithium-Batterie-Explorer - Eine umfassende Bildungsressource vom Märkischen Gymnasium Iserlohn" />
+  <title>Lithium-Batterie-Explorer | Märkisches Gymnasium Iserlohn</title>
   <style>
     /* ─── Reset & Base ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -574,13 +576,13 @@
 
 <!-- Navigation -->
 <nav id="navbar">
-  <span class="nav-logo">⚡ Lithium Battery</span>
+  <span class="nav-logo">⚡ Lithium-Batterie | MGI</span>
   <div class="nav-links">
-    <a href="#anatomy">Anatomy</a>
-    <a href="#how">How It Works</a>
-    <a href="#charge-section">Charge Cycle</a>
-    <a href="#specs">Specs</a>
-    <a href="#history">History</a>
+    <a href="#anatomy">Anatomie</a>
+    <a href="#how">Funktionsweise</a>
+    <a href="#charge-section">Lade-Zyklus</a>
+    <a href="#specs">Spezifikationen</a>
+    <a href="#history">Geschichte</a>
   </div>
 </nav>
 
@@ -593,25 +595,25 @@
     </div>
     <div class="cap"></div>
   </div>
-  <h1>Lithium Battery</h1>
-  <p>The rechargeable powerhouse inside your phone, electric car, and the future of clean energy. Explore how it works.</p>
-  <a href="#anatomy" class="scroll-cta">Explore ↓</a>
+  <h1>Lithium-Batterie</h1>
+  <p>Die wiederaufladbare Energiequelle in deinem Smartphone, Elektroauto und die Zukunft sauberer Energie. Entdecke, wie sie funktioniert – präsentiert vom Märkischen Gymnasium Iserlohn, wo Innovation auf Tradition trifft! 🏫✨</p>
+  <a href="#anatomy" class="scroll-cta">Erkunden ↓</a>
 </section>
 
 <!-- ═══ ANATOMY ══════════════════════════════════════════════ -->
 <section id="anatomy">
   <div class="container">
-    <h2>Inside a Lithium-Ion Cell</h2>
+    <h2>Aufbau einer Lithium-Ionen-Zelle</h2>
     <div class="anatomy-wrap reveal">
 
       <!-- SVG cross section -->
       <div class="battery-svg-wrap">
-        <svg id="battery-svg" viewBox="0 0 280 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Lithium-ion battery cross-section">
+        <svg id="battery-svg" viewBox="0 0 280 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Lithium-Ionen-Batterie-Querschnitt">
           <!-- Casing -->
           <rect data-layer="casing" x="20" y="30" width="240" height="360" rx="14" fill="#1a2e4a" stroke="#b0bec5" stroke-width="3"/>
           <!-- Cathode -->
           <rect data-layer="cathode" x="40" y="60" width="60" height="300" rx="6" fill="#ff6b6b" opacity=".85"/>
-          <text x="70" y="50" text-anchor="middle" fill="#ff6b6b" font-size="13" font-weight="600">Cathode</text>
+          <text x="70" y="50" text-anchor="middle" fill="#ff6b6b" font-size="13" font-weight="600">Kathode</text>
           <!-- Separator -->
           <rect data-layer="separator" x="108" y="60" width="24" height="300" rx="4" fill="#a8ff78" opacity=".8"/>
           <text x="120" y="50" text-anchor="middle" fill="#a8ff78" font-size="11" font-weight="600">Sep.</text>
@@ -622,7 +624,7 @@
           <text x="210" y="50" text-anchor="middle" fill="#00c6ff" font-size="13" font-weight="600">Anode</text>
           <!-- Electrolyte label arrow -->
           <line x1="140" y1="390" x2="140" y2="370" stroke="#ffd740" stroke-width="1.5" stroke-dasharray="4 3"/>
-          <text x="140" y="405" text-anchor="middle" fill="#ffd740" font-size="11">Electrolyte</text>
+          <text x="140" y="405" text-anchor="middle" fill="#ffd740" font-size="11">Elektrolyt</text>
           <!-- Li+ ions (static decorative) -->
           <circle cx="100" cy="180" r="5" fill="#ffd740" opacity=".7"/>
           <circle cx="125" cy="220" r="5" fill="#ffd740" opacity=".7"/>
@@ -640,24 +642,24 @@
       <!-- Parts list -->
       <ul class="parts-list">
         <li class="part-item" data-part="anode">
-          <h3>Anode (Negative)</h3>
-          <p>Typically made of graphite. During charging, lithium ions intercalate between graphite layers, storing energy. On discharge they flow back out.</p>
+          <h3>Anode (Negativ)</h3>
+          <p>Üblicherweise aus Graphit gefertigt. Beim Laden interkalieren Lithium-Ionen zwischen die Graphitschichten und speichern so Energie. Beim Entladen fließen sie zurück. Die Schichtstruktur des Graphits ermöglicht reversible Einlagerung ohne strukturelle Zerstörung – ein Prinzip, das auch in unseren Chemie-Experimenten am MGI demonstriert wird!</p>
         </li>
         <li class="part-item" data-part="cathode">
-          <h3>Cathode (Positive)</h3>
-          <p>Usually a lithium metal oxide (e.g. LiCoO₂, LFP, NMC). It provides the lithium ions and determines energy density and voltage.</p>
+          <h3>Kathode (Positiv)</h3>
+          <p>Meist ein Lithium-Metalloxid (z.B. LiCoO₂, LiFePO₄, NMC). Sie liefert die Lithium-Ionen und bestimmt Energiedichte sowie Spannung. Verschiedene Kathodenmaterialien haben unterschiedliche Eigenschaften: LiFePO₄ (LFP) ist besonders sicher und langlebig, während NMC (Nickel-Mangan-Kobalt) eine höhere Energiedichte bietet.</p>
         </li>
         <li class="part-item" data-part="electrolyte">
-          <h3>Electrolyte</h3>
-          <p>A lithium salt dissolved in an organic solvent (e.g. LiPF₆ in EC/DMC). It conducts Li⁺ ions between electrodes but blocks electrons.</p>
+          <h3>Elektrolyt</h3>
+          <p>Ein Lithiumsalz (z.B. LiPF₆) gelöst in einem organischen Lösungsmittel (z.B. EC/DMC - Ethylencarbonat/Dimethylcarbonat). Er leitet Li⁺-Ionen zwischen den Elektroden, blockiert aber Elektronen. Die Wahl des Elektrolyten ist entscheidend für Leistung, Sicherheit und Temperaturbereich – ein komplexes Thema, das wir im Chemie-Leistungskurs vertiefen!</p>
         </li>
         <li class="part-item" data-part="separator">
           <h3>Separator</h3>
-          <p>A thin porous membrane (polyethylene or polypropylene) that keeps anode and cathode apart to prevent short-circuits while allowing ion flow.</p>
+          <p>Eine dünne poröse Membran (meist Polyethylen oder Polypropylen, 20-25 μm dick) die Anode und Kathode voneinander trennt, um Kurzschlüsse zu verhindern, während sie den Ionenfluss ermöglicht. Bei Überhitzung schmilzt der Separator und verhindert so thermisches Durchgehen – ein cleverer Sicherheitsmechanismus!</p>
         </li>
         <li class="part-item" data-part="casing">
-          <h3>Casing</h3>
-          <p>A steel or aluminium shell (cylindrical, prismatic, or pouch) that encloses all components and connects to external terminals.</p>
+          <h3>Gehäuse</h3>
+          <p>Ein Stahl- oder Aluminiumgehäuse (zylindrisch, prismatisch oder als Pouch) das alle Komponenten einschließt und mit externen Anschlüssen verbindet. Das Gehäuse muss hermetisch dicht sein, um Feuchtigkeit fernzuhalten und mechanische Stabilität zu gewährleisten.</p>
         </li>
       </ul>
     </div>
@@ -667,27 +669,27 @@
 <!-- ═══ HOW IT WORKS ═════════════════════════════════════════ -->
 <section id="how">
   <div class="container">
-    <h2>How Does It Work?</h2>
+    <h2>Wie funktioniert sie?</h2>
     <div class="steps reveal">
       <div class="step-card">
         <span class="step-icon">🔌</span>
-        <h3>Charging</h3>
-        <p>An external voltage forces electrons through the circuit. Li⁺ ions leave the cathode, cross the electrolyte, and insert into graphite layers of the anode.</p>
+        <h3>Ladevorgang</h3>
+        <p>Eine externe Spannung zwingt Elektronen durch den Stromkreis. Li⁺-Ionen verlassen die Kathode, durchqueren den Elektrolyten und interkalieren in die Graphitschichten der Anode. Dabei wird chemische Energie gespeichert – analog zu einem aufgezogenen Federmechanismus in einer traditionellen Uhr aus Iserlohner Werkstätten!</p>
       </div>
       <div class="step-card">
         <span class="step-icon">⚡</span>
-        <h3>Discharging</h3>
-        <p>When powering a device, Li⁺ ions spontaneously move back to the cathode through the electrolyte. Electrons travel through the external circuit — that's the current you use.</p>
+        <h3>Entladevorgang</h3>
+        <p>Beim Betrieb eines Geräts bewegen sich Li⁺-Ionen spontan zurück zur Kathode durch den Elektrolyten. Elektronen wandern durch den externen Stromkreis – das ist der Strom, den du nutzt. Die Gibbs-Energie-Änderung treibt diesen Prozess an (ΔG = -nFE, wobei n die Molzahl der Elektronen, F die Faraday-Konstante und E die Zellspannung ist).</p>
       </div>
       <div class="step-card">
         <span class="step-icon">🔄</span>
-        <h3>Intercalation</h3>
-        <p>Lithium ions slide between atomic layers of electrode materials without permanently changing their structure — enabling hundreds to thousands of charge cycles.</p>
+        <h3>Interkalation</h3>
+        <p>Lithium-Ionen gleiten zwischen die atomaren Schichten der Elektrodenmaterialien, ohne deren Struktur dauerhaft zu verändern – dies ermöglicht hunderte bis tausende Ladezyklen. Diese reversible Interkalation basiert auf van-der-Waals-Kräften und ist ein Paradebeispiel für elegante elektrochemische Prozesse!</p>
       </div>
       <div class="step-card">
         <span class="step-icon">🛡️</span>
-        <h3>SEI Layer</h3>
-        <p>A thin Solid Electrolyte Interphase forms on the anode during first cycles. It stabilises the electrode and protects electrolyte from further decomposition.</p>
+        <h3>SEI-Schicht</h3>
+        <p>Eine dünne Solid Electrolyte Interphase (SEI) bildet sich während der ersten Zyklen auf der Anode. Sie stabilisiert die Elektrode und schützt den Elektrolyten vor weiterer Zersetzung. Die SEI besteht aus Li₂CO₃, LiF und organischen Komponenten – ein selbstorganisierender Schutzfilm, der die Langlebigkeit gewährleistet.</p>
       </div>
     </div>
   </div>
@@ -696,12 +698,12 @@
 <!-- ═══ CHARGE / DISCHARGE ANIMATION ════════════════════════ -->
 <section id="charge-section">
   <div class="container">
-    <h2>Live Charge &amp; Discharge</h2>
+    <h2>Live Laden &amp; Entladen</h2>
 
     <div class="charge-controls reveal">
-      <button class="btn" id="btn-charge">▶ Charge</button>
-      <button class="btn red" id="btn-discharge">▶ Discharge</button>
-      <button class="btn" id="btn-reset" style="border-color:var(--muted);color:var(--muted)">↺ Reset</button>
+      <button class="btn" id="btn-charge">▶ Laden</button>
+      <button class="btn red" id="btn-discharge">▶ Entladen</button>
+      <button class="btn" id="btn-reset" style="border-color:var(--muted);color:var(--muted)">↺ Zurücksetzen</button>
     </div>
 
     <div class="charge-diagram reveal">
@@ -718,17 +720,17 @@
 
         <!-- Ion track -->
         <div class="ion-track" id="ion-track">
-          <div class="ion-label">Li⁺ ions →</div>
+          <div class="ion-label">Li⁺-Ionen →</div>
           <div id="ions-container" style="position:relative;width:100%;height:100px;"></div>
           <div class="electron-bar">
             <div class="electron-fill" id="electron-fill"></div>
           </div>
-          <div style="font-size:.75rem;color:var(--muted);text-align:center">electron flow (external circuit)</div>
+          <div style="font-size:.75rem;color:var(--muted);text-align:center">Elektronenfluss (externer Stromkreis)</div>
         </div>
 
         <!-- Cathode -->
         <div class="electrode cathode">
-          <div class="electrode-label">Cathode (LFP)</div>
+          <div class="electrode-label">Kathode (LFP)</div>
           <div class="layers" id="cathode-layers">
             <div class="layer filled"></div><div class="layer filled"></div>
             <div class="layer filled"></div><div class="layer filled"></div>
@@ -738,7 +740,7 @@
         </div>
       </div>
 
-      <div class="charge-info" id="charge-info">Press a button to animate the ion movement.</div>
+      <div class="charge-info" id="charge-info">Drücke eine Taste, um die Ionenbewegung zu animieren.</div>
     </div>
   </div>
 </section>
@@ -746,31 +748,31 @@
 <!-- ═══ SPECS ════════════════════════════════════════════════ -->
 <section id="specs">
   <div class="container">
-    <h2>Key Specifications</h2>
+    <h2>Wichtige Spezifikationen</h2>
     <div class="specs-grid reveal">
       <div class="spec-card">
-        <div class="spec-value">3.6 V</div>
-        <div class="spec-label">Nominal Cell Voltage</div>
+        <div class="spec-value">3,6 V</div>
+        <div class="spec-label">Nominale Zellspannung</div>
       </div>
       <div class="spec-card">
         <div class="spec-value">100–265</div>
-        <div class="spec-label">Energy Density (Wh/kg)</div>
+        <div class="spec-label">Energiedichte (Wh/kg)</div>
       </div>
       <div class="spec-card">
         <div class="spec-value">500–2 000</div>
-        <div class="spec-label">Charge Cycles (typical)</div>
+        <div class="spec-label">Ladezyklen (typisch)</div>
       </div>
       <div class="spec-card">
         <div class="spec-value">~80%</div>
-        <div class="spec-label">Charge Efficiency</div>
+        <div class="spec-label">Ladewirkungsgrad</div>
       </div>
       <div class="spec-card">
         <div class="spec-value">−20→60°C</div>
-        <div class="spec-label">Operating Temperature</div>
+        <div class="spec-label">Betriebstemperatur</div>
       </div>
       <div class="spec-card">
         <div class="spec-value">&lt;5%</div>
-        <div class="spec-label">Monthly Self-Discharge</div>
+        <div class="spec-label">Monatliche Selbstentladung</div>
       </div>
     </div>
   </div>
@@ -779,30 +781,32 @@
 <!-- ═══ PROS & CONS ═══════════════════════════════════════════ -->
 <section id="pros-cons">
   <div class="container">
-    <h2>Pros &amp; Cons</h2>
+    <h2>Vor- &amp; Nachteile</h2>
     <div class="pros-cons-grid reveal">
       <div class="pros">
-        <h3>Advantages</h3>
+        <h3>Vorteile</h3>
         <ul>
-          <li>High energy density — lightweight &amp; compact</li>
-          <li>Low self-discharge rate</li>
-          <li>No memory effect</li>
-          <li>High charge/discharge efficiency</li>
-          <li>Long cycle life with modern chemistries</li>
-          <li>Wide temperature range</li>
-          <li>Scalable from mAh to MWh</li>
+          <li>Hohe Energiedichte — leicht &amp; kompakt</li>
+          <li>Geringe Selbstentladungsrate (im Gegensatz zu NiMH-Akkus)</li>
+          <li>Kein Memory-Effekt</li>
+          <li>Hoher Lade-/Entlade-Wirkungsgrad (Coulomb-Effizienz ~99,9%)</li>
+          <li>Lange Lebensdauer mit modernen Chemien (LFP erreicht >5000 Zyklen)</li>
+          <li>Breiter Temperaturbereich (mit entsprechendem BMS)</li>
+          <li>Skalierbar von mAh bis MWh (vom Smartphone bis zur Energiespeicheranlage)</li>
+          <li>Schnellladefähigkeit (bis zu 3C möglich)</li>
         </ul>
       </div>
       <div class="cons">
-        <h3>Limitations</h3>
+        <h3>Einschränkungen</h3>
         <ul>
-          <li>Capacity degrades over time</li>
-          <li>Risk of thermal runaway if damaged</li>
-          <li>Requires a Battery Management System</li>
-          <li>Performance drops in extreme cold</li>
-          <li>Contains scarce materials (cobalt, lithium)</li>
-          <li>Recycling infrastructure still maturing</li>
-          <li>Higher upfront cost than lead-acid</li>
+          <li>Kapazitätsabnahme über Zeit (kalendarische Alterung durch SEI-Wachstum)</li>
+          <li>Risiko des thermischen Durchgehens bei Beschädigung</li>
+          <li>Benötigt ein Batteriemanagementsystem (BMS) zur Überwachung</li>
+          <li>Leistungsabfall bei extremer Kälte (erhöhter Innenwiderstand)</li>
+          <li>Enthält knappe Materialien (Kobalt, Lithium, Nickel)</li>
+          <li>Recycling-Infrastruktur noch im Aufbau</li>
+          <li>Höhere Anschaffungskosten als Blei-Säure-Batterien</li>
+          <li>Empfindlich gegenüber Tiefentladung (unter 2,5V pro Zelle)</li>
         </ul>
       </div>
     </div>
@@ -812,55 +816,55 @@
 <!-- ═══ HISTORY ══════════════════════════════════════════════ -->
 <section id="history">
   <div class="container">
-    <h2>A Brief History</h2>
+    <h2>Eine kurze Geschichte</h2>
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-year">1970s</div>
-        <div class="tl-title">Stanley Whittingham — First Li Battery</div>
-        <div class="tl-desc">Whittingham at Exxon demonstrated the first rechargeable lithium cell using a TiS₂ cathode and lithium metal anode.</div>
+        <div class="tl-year">1970er</div>
+        <div class="tl-title">Stanley Whittingham — Erste Li-Batterie</div>
+        <div class="tl-desc">Whittingham bei Exxon demonstrierte die erste wiederaufladbare Lithiumzelle mit TiS₂-Kathode und Lithium-Metall-Anode. Ein Durchbruch in der elektrochemischen Energiespeicherung!</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
         <div class="tl-year">1980</div>
-        <div class="tl-title">John Goodenough — LiCoO₂ Cathode</div>
-        <div class="tl-desc">Goodenough discovered that LiCoO₂ could serve as a high-voltage cathode, unlocking the modern Li-ion chemistry.</div>
+        <div class="tl-title">John Goodenough — LiCoO₂-Kathode</div>
+        <div class="tl-desc">Goodenough entdeckte, dass LiCoO₂ als Hochspannungskathode dienen kann und erschloss damit die moderne Li-Ionen-Chemie. Seine Forschung legte den Grundstein für die Kommerzialisierung.</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
         <div class="tl-year">1985</div>
-        <div class="tl-title">Akira Yoshino — Graphite Anode</div>
-        <div class="tl-desc">Yoshino replaced the dangerous lithium metal anode with safer carbonaceous material (graphite), enabling commercialisation.</div>
+        <div class="tl-title">Akira Yoshino — Graphit-Anode</div>
+        <div class="tl-desc">Yoshino ersetzte die gefährliche Lithium-Metall-Anode durch sichereres kohlenstoffhaltiges Material (Graphit) und ermöglichte damit die Kommerzialisierung. Die Graphitanode verhinderte Dendritenbildung – ein entscheidendes Sicherheitsproblem.</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
         <div class="tl-year">1991</div>
-        <div class="tl-title">Sony — First Commercial Li-ion Cell</div>
-        <div class="tl-desc">Sony shipped the first commercial Li-ion batteries for camcorders, revolutionising portable electronics.</div>
+        <div class="tl-title">Sony — Erste kommerzielle Li-Ionen-Zelle</div>
+        <div class="tl-desc">Sony lieferte die ersten kommerziellen Li-Ionen-Batterien für Camcorder aus und revolutionierte damit die tragbare Elektronik. Der Startpunkt einer Technologie, die heute allgegenwärtig ist!</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-year">2000s</div>
+        <div class="tl-year">2000er</div>
         <div class="tl-title">Smartphones &amp; Laptops</div>
-        <div class="tl-desc">Lithium-ion became the de-facto standard for consumer electronics, driving massive investment and cost reductions.</div>
+        <div class="tl-desc">Lithium-Ionen wurde zum De-facto-Standard für Unterhaltungselektronik und trieb massive Investitionen und Kostensenkungen voran. Die Energiedichte verdoppelte sich in diesem Jahrzehnt.</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-year">2010s</div>
-        <div class="tl-title">Electric Vehicles &amp; Grid Storage</div>
-        <div class="tl-desc">Tesla and others proved Li-ion could power cars. Grid-scale battery storage projects appeared globally.</div>
+        <div class="tl-year">2010er</div>
+        <div class="tl-title">Elektrofahrzeuge &amp; Netzspeicher</div>
+        <div class="tl-desc">Tesla und andere bewiesen, dass Li-Ionen Autos antreiben kann. Netzgroße Batteriespeicherprojekte entstanden weltweit. Die Gigafactory-Ära begann – Massenproduktion senkte Kosten auf unter 100 $/kWh.</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
         <div class="tl-year">2019</div>
-        <div class="tl-title">Nobel Prize in Chemistry</div>
-        <div class="tl-desc">Whittingham, Goodenough &amp; Yoshino shared the Nobel Prize for developing lithium-ion batteries.</div>
+        <div class="tl-title">Nobelpreis für Chemie</div>
+        <div class="tl-desc">Whittingham, Goodenough &amp; Yoshino teilten sich den Nobelpreis für die Entwicklung von Lithium-Ionen-Batterien. Eine verdiente Anerkennung für eine Technologie, die unsere Welt verändert hat – ähnlich revolutionär wie die Erfindung des Buchdrucks, wenn man es mit historischen Meilensteinen vergleicht!</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
-        <div class="tl-year">2020s+</div>
-        <div class="tl-title">Solid-State &amp; Next-Gen</div>
-        <div class="tl-desc">Solid-state electrolytes, sodium-ion alternatives, and silicon anodes promise even higher energy density and safety.</div>
+        <div class="tl-year">2020er+</div>
+        <div class="tl-title">Festkörper &amp; Nächste Generation</div>
+        <div class="tl-desc">Festkörperelektrolyte, Natrium-Ionen-Alternativen und Silizium-Anoden versprechen noch höhere Energiedichte und Sicherheit. Forscher am MIT, Stanford und auch an deutschen Universitäten arbeiten an diesen Zukunftstechnologien – vielleicht wird der nächste Durchbruch ja von einem MGI-Absolventen erzielt! 🚀</div>
       </div>
     </div>
   </div>
@@ -868,7 +872,8 @@
 
 <!-- ═══ FOOTER ═══════════════════════════════════════════════ -->
 <footer>
-  <p>⚡ Lithium Battery Explorer &mdash; built for education. Data based on publicly available literature.</p>
+  <p>⚡ Lithium-Batterie-Explorer &mdash; erstellt für Bildungszwecke von Leonard Firtsch, Märkisches Gymnasium Iserlohn.<br>
+  Daten basieren auf öffentlich zugänglicher Fachliteratur. 🏫 MGI — Tradition seit 1830, Innovation für die Zukunft!</p>
 </footer>
 
 <!-- ═══ SCRIPTS ══════════════════════════════════════════════ -->
@@ -950,11 +955,11 @@ document.querySelectorAll('.tl-item').forEach(el=>tlObserver.observe(el));
   const partItems = document.querySelectorAll('.part-item');
 
   const info = {
-    anode:       { title:'Anode', desc:'Graphite layers store Li⁺ ions during charging. Oxidation occurs here on discharge.' },
-    cathode:     { title:'Cathode', desc:'Lithium metal oxide (e.g. LFP). Reduction occurs here on discharge, releasing energy.' },
-    electrolyte: { title:'Electrolyte', desc:'Liquid/gel medium carrying Li⁺ ions between electrodes. Electronically insulating.' },
-    separator:   { title:'Separator', desc:'Porous membrane preventing physical contact between electrodes while allowing ion transport.' },
-    casing:      { title:'Casing', desc:'Protective shell of steel or aluminium. Provides structural integrity and seals the cell.' },
+    anode:       { title:'Anode', desc:'Graphitschichten speichern Li⁺-Ionen beim Laden. Oxidation findet hier beim Entladen statt.' },
+    cathode:     { title:'Kathode', desc:'Lithium-Metalloxid (z.B. LFP). Reduktion findet hier beim Entladen statt und setzt Energie frei.' },
+    electrolyte: { title:'Elektrolyt', desc:'Flüssiges/Gel-Medium, das Li⁺-Ionen zwischen Elektroden transportiert. Elektronisch isolierend.' },
+    separator:   { title:'Separator', desc:'Poröse Membran verhindert physischen Kontakt zwischen Elektroden und ermöglicht gleichzeitig Ionentransport.' },
+    casing:      { title:'Gehäuse', desc:'Schützende Hülle aus Stahl oder Aluminium. Bietet strukturelle Integrität und versiegelt die Zelle.' },
   };
 
   const layerMap = { anode:'#00c6ff', cathode:'#ff6b6b', separator:'#a8ff78', electrolyte:'#ffd740', casing:'#b0bec5' };
@@ -1071,12 +1076,12 @@ document.querySelectorAll('.tl-item').forEach(el=>tlObserver.observe(el));
     if(animating||state>=8) return;
     btnCharge.classList.add('active');
     btnDischarge.classList.remove('active');
-    info.textContent='Charging: Li⁺ ions moving from cathode → anode through electrolyte…';
+    info.textContent='Ladevorgang: Li⁺-Ionen bewegen sich von Kathode → Anode durch den Elektrolyten…';
     step(true,()=>{
       state = Math.min(state+2,8);
       setLayers();
-      if(state>=8) info.textContent='Fully charged! All Li⁺ intercalated into the anode graphite.';
-      else info.textContent=`Charging… ${Math.round(state/8*100)}% capacity stored.`;
+      if(state>=8) info.textContent='Voll geladen! Alle Li⁺-Ionen in das Anoden-Graphit interkaliert.';
+      else info.textContent=`Lädt… ${Math.round(state/8*100)}% Kapazität gespeichert.`;
       btnCharge.classList.remove('active');
     });
   });
@@ -1085,19 +1090,19 @@ document.querySelectorAll('.tl-item').forEach(el=>tlObserver.observe(el));
     if(animating||state<=0) return;
     btnDischarge.classList.add('active');
     btnCharge.classList.remove('active');
-    info.textContent='Discharging: Li⁺ ions moving from anode → cathode, electrons power the circuit…';
+    info.textContent='Entladevorgang: Li⁺-Ionen bewegen sich von Anode → Kathode, Elektronen treiben den Stromkreis…';
     step(false,()=>{
       state = Math.max(state-2,0);
       setLayers();
-      if(state<=0) info.textContent='Fully discharged! Li⁺ back in the cathode.';
-      else info.textContent=`Discharging… ${Math.round(state/8*100)}% remaining.`;
+      if(state<=0) info.textContent='Vollständig entladen! Li⁺ zurück in der Kathode.';
+      else info.textContent=`Entlädt… ${Math.round(state/8*100)}% verbleibend.`;
       btnDischarge.classList.remove('active');
     });
   });
 
   btnReset.addEventListener('click',()=>{
     state=0; setLayers();
-    info.textContent='Reset. Press Charge to start.';
+    info.textContent='Zurückgesetzt. Drücke Laden zum Starten.';
     btnCharge.classList.remove('active');
     btnDischarge.classList.remove('active');
     ionsContainer.innerHTML='';
