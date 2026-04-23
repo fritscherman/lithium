@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lithium Battery Explorer</title>
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #05080f;
+      --surface:   #0d1526;
+      --surface2:  #122040;
+      --accent:    #00c6ff;
+      --accent2:   #7b2ff7;
+      --green:     #00e676;
+      --red:       #ff5252;
+      --yellow:    #ffd740;
+      --text:      #e0eaff;
+      --muted:     #7a90b8;
+      --radius:    12px;
+      --glow:      0 0 18px rgba(0,198,255,.45);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── Particle canvas ───────────────────────────────────── */
+    #particles {
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Layout helpers ────────────────────────────────────── */
+    .container {
+      position: relative; z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section { padding: 80px 0; }
+
+    h2 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      text-align: center;
+      margin-bottom: 48px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── Hero ──────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 24px;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, #0a2545 0%, var(--bg) 70%);
+    }
+
+    #hero h1 {
+      font-size: clamp(2.4rem, 7vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #fff 20%, var(--accent) 60%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeUp .9s ease both;
+    }
+
+    #hero p {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--muted);
+      max-width: 560px;
+      animation: fadeUp .9s .25s ease both;
+    }
+
+    .scroll-cta {
+      animation: fadeUp .9s .45s ease both, bounce 2s 1.5s infinite;
+      font-size: .9rem;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 10px 28px;
+      border-radius: 40px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .25s, color .25s, box-shadow .25s;
+    }
+    .scroll-cta:hover {
+      background: var(--accent);
+      color: #000;
+      box-shadow: var(--glow);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-8px); }
+    }
+
+    /* ─── Animated battery hero icon ────────────────────────── */
+    .hero-battery {
+      width: 180px; height: 90px;
+      position: relative;
+      animation: fadeUp .9s .1s ease both;
+    }
+    .hero-battery .body {
+      width: 160px; height: 90px;
+      border: 3px solid var(--accent);
+      border-radius: 10px;
+      position: absolute; left: 0;
+      overflow: hidden;
+      box-shadow: var(--glow);
+    }
+    .hero-battery .cap {
+      width: 16px; height: 34px;
+      background: var(--accent);
+      border-radius: 0 6px 6px 0;
+      position: absolute; right: 0; top: 50%;
+      transform: translateY(-50%);
+    }
+    .hero-battery .fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0077b6, var(--accent));
+      animation: charge 3s ease-in-out infinite alternate;
+      border-radius: 7px 0 0 7px;
+    }
+    @keyframes charge {
+      from { width: 15%; }
+      to   { width: 92%; }
+    }
+    .hero-battery .bolt {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem;
+      animation: flicker 3s ease-in-out infinite alternate;
+      z-index: 2;
+      pointer-events: none;
+    }
+    @keyframes flicker {
+      0%,40%  { opacity: 0; }
+      50%,100% { opacity: 1; }
+    }
+
+    /* ─── Anatomy diagram ───────────────────────────────────── */
+    #anatomy { background: var(--surface); }
+
+    .anatomy-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    @media(max-width:720px){ .anatomy-wrap { grid-template-columns: 1fr; } }
+
+    /* SVG battery cross-section */
+    .battery-svg-wrap {
+      position: relative;
+      display: flex; justify-content: center;
+    }
+
+    #battery-svg { width: 100%; max-width: 340px; cursor: default; }
+
+    /* Tooltip */
+    .tooltip {
+      position: absolute;
+      background: var(--surface2);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: .85rem;
+      max-width: 220px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .2s;
+      box-shadow: var(--glow);
+      z-index: 10;
+      color: var(--text);
+    }
+    .tooltip.visible { opacity: 1; }
+
+    /* Anatomy list */
+    .parts-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+
+    .part-item {
+      background: var(--surface2);
+      border-left: 4px solid transparent;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 14px 18px;
+      cursor: pointer;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+    }
+    .part-item:hover,
+    .part-item.active {
+      transform: translateX(6px);
+      box-shadow: -4px 0 16px rgba(0,198,255,.25);
+    }
+    .part-item[data-part="anode"]     { --c: #00c6ff; }
+    .part-item[data-part="cathode"]   { --c: #ff6b6b; }
+    .part-item[data-part="electrolyte"]{ --c: #ffd740; }
+    .part-item[data-part="separator"] { --c: #a8ff78; }
+    .part-item[data-part="casing"]    { --c: #b0bec5; }
+
+    .part-item:hover, .part-item.active { border-color: var(--c); }
+
+    .part-item h3 { font-size: 1rem; margin-bottom: 4px; color: var(--c); }
+    .part-item p  { font-size: .85rem; color: var(--muted); }
+
+    /* SVG highlight pulse */
+    @keyframes svgPulse {
+      0%,100% { opacity: 1; }
+      50%      { opacity: .55; }
+    }
+    .pulsing { animation: svgPulse .8s ease-in-out infinite; }
+
+    /* ─── How it works ──────────────────────────────────────── */
+    #how { background: var(--bg); }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .step-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+      border: 1px solid transparent;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .step-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,198,255,.07), rgba(123,47,247,.07));
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .step-card:hover::before { opacity: 1; }
+    .step-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 36px rgba(0,198,255,.2);
+    }
+
+    .step-icon {
+      font-size: 2.6rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .step-card h3 { margin-bottom: 8px; color: var(--accent); }
+    .step-card p  { font-size: .9rem; color: var(--muted); }
+
+    /* ─── Charge / Discharge animation ─────────────────────── */
+    #charge-section { background: var(--surface); }
+
+    .charge-controls {
+      display: flex; gap: 16px; justify-content: center; margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 28px;
+      border-radius: 40px;
+      border: 2px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .25s, color .25s, box-shadow .25s;
+    }
+    .btn:hover, .btn.active {
+      background: var(--accent);
+      color: #000;
+      box-shadow: var(--glow);
+    }
+    .btn.red  { border-color: var(--red); color: var(--red); }
+    .btn.red:hover, .btn.red.active { background: var(--red); color: #fff; box-shadow: 0 0 18px rgba(255,82,82,.45); }
+
+    .charge-diagram {
+      max-width: 700px; margin: 0 auto;
+      background: var(--surface2);
+      border-radius: var(--radius);
+      padding: 32px;
+      border: 1px solid #1e3a5f;
+    }
+
+    .electrodes {
+      display: flex;
+      gap: 40px;
+      align-items: stretch;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .electrode {
+      flex: 1;
+      min-width: 90px;
+      max-width: 160px;
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 16px 12px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .electrode.anode  { border: 2px solid var(--accent); }
+    .electrode.cathode{ border: 2px solid var(--red); }
+
+    .electrode-label {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .anode  .electrode-label { color: var(--accent); }
+    .cathode .electrode-label { color: var(--red); }
+
+    .ion-track {
+      height: 160px;
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+
+    .ion-label {
+      font-size: .8rem; color: var(--muted);
+      background: var(--surface2);
+      padding: 2px 10px; border-radius: 20px;
+    }
+
+    /* Individual ions */
+    .ion {
+      width: 16px; height: 16px;
+      background: radial-gradient(circle, #fff 10%, var(--yellow) 60%, transparent 100%);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      box-shadow: 0 0 8px var(--yellow);
+    }
+
+    /* Electron flow bar */
+    .electron-bar {
+      height: 4px;
+      width: 100%;
+      background: var(--surface);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+    .electron-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      border-radius: 4px;
+      transition: width .5s;
+    }
+
+    .charge-info {
+      text-align: center;
+      font-size: .95rem;
+      color: var(--muted);
+      margin-top: 16px;
+      min-height: 24px;
+    }
+
+    /* graphite layers inside electrode */
+    .layers {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .layer {
+      height: 10px;
+      border-radius: 3px;
+      background: #1e3a5f;
+      transition: background .4s;
+    }
+    .layer.filled { background: var(--accent); }
+    .cathode .layer.filled { background: var(--red); }
+
+    /* ─── Specs table ───────────────────────────────────────── */
+    #specs { background: var(--bg); }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .spec-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      text-align: center;
+      border: 1px solid #1e3a5f;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .spec-card:hover {
+      border-color: var(--accent2);
+      box-shadow: 0 0 20px rgba(123,47,247,.25);
+    }
+    .spec-value {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .spec-label { font-size: .85rem; color: var(--muted); margin-top: 6px; }
+
+    /* ─── Pros & Cons ───────────────────────────────────────── */
+    #pros-cons { background: var(--surface); }
+
+    .pros-cons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    @media(max-width:640px){ .pros-cons-grid { grid-template-columns: 1fr; } }
+
+    .pros, .cons {
+      background: var(--surface2);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+    .pros { border-top: 4px solid var(--green); }
+    .cons { border-top: 4px solid var(--red); }
+
+    .pros h3 { color: var(--green); margin-bottom: 16px; }
+    .cons h3 { color: var(--red);   margin-bottom: 16px; }
+
+    .pros ul, .cons ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .pros li::before { content: '✓ '; color: var(--green); font-weight: 700; }
+    .cons li::before { content: '✗ '; color: var(--red);   font-weight: 700; }
+    .pros li, .cons li { font-size: .95rem; color: var(--muted); }
+
+    /* ─── Timeline / History ────────────────────────────────── */
+    #history { background: var(--bg); }
+
+    .timeline {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto;
+      padding-left: 40px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 15px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 36px;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity .5s, transform .5s;
+    }
+    .tl-item.visible { opacity: 1; transform: translateX(0); }
+
+    .tl-dot {
+      position: absolute; left: -32px; top: 4px;
+      width: 16px; height: 16px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 3px solid var(--bg);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .tl-year {
+      font-size: .8rem; font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+    .tl-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 4px; }
+    .tl-desc  { font-size: .88rem; color: var(--muted); }
+
+    /* ─── Footer ────────────────────────────────────────────── */
+    footer {
+      background: var(--surface);
+      text-align: center;
+      padding: 32px;
+      font-size: .85rem;
+      color: var(--muted);
+      position: relative; z-index: 1;
+    }
+
+    /* ─── Scroll reveal ─────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── Nav ───────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 32px;
+      background: rgba(5,8,15,.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,198,255,.1);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.5); }
+
+    .nav-logo {
+      font-weight: 800; font-size: 1.1rem;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .9rem;
+      transition: color .25s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    @media(max-width:560px){ .nav-links { display: none; } }
+
+    /* ─── Glow ring on hover for SVG parts ──────────────────── */
+    [data-layer] {
+      cursor: pointer;
+      transition: filter .25s;
+    }
+    [data-layer]:hover { filter: brightness(1.4) drop-shadow(0 0 6px currentColor); }
+  </style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <span class="nav-logo">⚡ Lithium Battery</span>
+  <div class="nav-links">
+    <a href="#anatomy">Anatomy</a>
+    <a href="#how">How It Works</a>
+    <a href="#charge-section">Charge Cycle</a>
+    <a href="#specs">Specs</a>
+    <a href="#history">History</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-battery">
+    <div class="body">
+      <div class="fill"></div>
+      <div class="bolt">⚡</div>
+    </div>
+    <div class="cap"></div>
+  </div>
+  <h1>Lithium Battery</h1>
+  <p>The rechargeable powerhouse inside your phone, electric car, and the future of clean energy. Explore how it works.</p>
+  <a href="#anatomy" class="scroll-cta">Explore ↓</a>
+</section>
+
+<!-- ═══ ANATOMY ══════════════════════════════════════════════ -->
+<section id="anatomy">
+  <div class="container">
+    <h2>Inside a Lithium-Ion Cell</h2>
+    <div class="anatomy-wrap reveal">
+
+      <!-- SVG cross section -->
+      <div class="battery-svg-wrap">
+        <svg id="battery-svg" viewBox="0 0 280 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Lithium-ion battery cross-section">
+          <!-- Casing -->
+          <rect data-layer="casing" x="20" y="30" width="240" height="360" rx="14" fill="#1a2e4a" stroke="#b0bec5" stroke-width="3"/>
+          <!-- Cathode -->
+          <rect data-layer="cathode" x="40" y="60" width="60" height="300" rx="6" fill="#ff6b6b" opacity=".85"/>
+          <text x="70" y="50" text-anchor="middle" fill="#ff6b6b" font-size="13" font-weight="600">Cathode</text>
+          <!-- Separator -->
+          <rect data-layer="separator" x="108" y="60" width="24" height="300" rx="4" fill="#a8ff78" opacity=".8"/>
+          <text x="120" y="50" text-anchor="middle" fill="#a8ff78" font-size="11" font-weight="600">Sep.</text>
+          <!-- Electrolyte fill behind separator -->
+          <rect data-layer="electrolyte" x="100" y="60" width="80" height="300" rx="0" fill="#ffd740" opacity=".12"/>
+          <!-- Anode -->
+          <rect data-layer="anode" x="180" y="60" width="60" height="300" rx="6" fill="#00c6ff" opacity=".85"/>
+          <text x="210" y="50" text-anchor="middle" fill="#00c6ff" font-size="13" font-weight="600">Anode</text>
+          <!-- Electrolyte label arrow -->
+          <line x1="140" y1="390" x2="140" y2="370" stroke="#ffd740" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="140" y="405" text-anchor="middle" fill="#ffd740" font-size="11">Electrolyte</text>
+          <!-- Li+ ions (static decorative) -->
+          <circle cx="100" cy="180" r="5" fill="#ffd740" opacity=".7"/>
+          <circle cx="125" cy="220" r="5" fill="#ffd740" opacity=".7"/>
+          <circle cx="148" cy="160" r="5" fill="#ffd740" opacity=".7"/>
+          <circle cx="160" cy="240" r="5" fill="#ffd740" opacity=".7"/>
+          <circle cx="115" cy="290" r="5" fill="#ffd740" opacity=".7"/>
+          <!-- Terminal + -->
+          <rect x="110" y="10" width="60" height="22" rx="5" fill="#b0bec5"/>
+          <text x="140" y="26" text-anchor="middle" fill="#0d1526" font-size="13" font-weight="700">+  −</text>
+        </svg>
+
+        <div class="tooltip" id="svg-tooltip"></div>
+      </div>
+
+      <!-- Parts list -->
+      <ul class="parts-list">
+        <li class="part-item" data-part="anode">
+          <h3>Anode (Negative)</h3>
+          <p>Typically made of graphite. During charging, lithium ions intercalate between graphite layers, storing energy. On discharge they flow back out.</p>
+        </li>
+        <li class="part-item" data-part="cathode">
+          <h3>Cathode (Positive)</h3>
+          <p>Usually a lithium metal oxide (e.g. LiCoO₂, LFP, NMC). It provides the lithium ions and determines energy density and voltage.</p>
+        </li>
+        <li class="part-item" data-part="electrolyte">
+          <h3>Electrolyte</h3>
+          <p>A lithium salt dissolved in an organic solvent (e.g. LiPF₆ in EC/DMC). It conducts Li⁺ ions between electrodes but blocks electrons.</p>
+        </li>
+        <li class="part-item" data-part="separator">
+          <h3>Separator</h3>
+          <p>A thin porous membrane (polyethylene or polypropylene) that keeps anode and cathode apart to prevent short-circuits while allowing ion flow.</p>
+        </li>
+        <li class="part-item" data-part="casing">
+          <h3>Casing</h3>
+          <p>A steel or aluminium shell (cylindrical, prismatic, or pouch) that encloses all components and connects to external terminals.</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═════════════════════════════════════════ -->
+<section id="how">
+  <div class="container">
+    <h2>How Does It Work?</h2>
+    <div class="steps reveal">
+      <div class="step-card">
+        <span class="step-icon">🔌</span>
+        <h3>Charging</h3>
+        <p>An external voltage forces electrons through the circuit. Li⁺ ions leave the cathode, cross the electrolyte, and insert into graphite layers of the anode.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-icon">⚡</span>
+        <h3>Discharging</h3>
+        <p>When powering a device, Li⁺ ions spontaneously move back to the cathode through the electrolyte. Electrons travel through the external circuit — that's the current you use.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-icon">🔄</span>
+        <h3>Intercalation</h3>
+        <p>Lithium ions slide between atomic layers of electrode materials without permanently changing their structure — enabling hundreds to thousands of charge cycles.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-icon">🛡️</span>
+        <h3>SEI Layer</h3>
+        <p>A thin Solid Electrolyte Interphase forms on the anode during first cycles. It stabilises the electrode and protects electrolyte from further decomposition.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CHARGE / DISCHARGE ANIMATION ════════════════════════ -->
+<section id="charge-section">
+  <div class="container">
+    <h2>Live Charge &amp; Discharge</h2>
+
+    <div class="charge-controls reveal">
+      <button class="btn" id="btn-charge">▶ Charge</button>
+      <button class="btn red" id="btn-discharge">▶ Discharge</button>
+      <button class="btn" id="btn-reset" style="border-color:var(--muted);color:var(--muted)">↺ Reset</button>
+    </div>
+
+    <div class="charge-diagram reveal">
+      <div class="electrodes">
+        <!-- Anode -->
+        <div class="electrode anode">
+          <div class="electrode-label">Anode (C)</div>
+          <div class="layers" id="anode-layers">
+            <div class="layer"></div><div class="layer"></div><div class="layer"></div>
+            <div class="layer"></div><div class="layer"></div><div class="layer"></div>
+            <div class="layer"></div><div class="layer"></div>
+          </div>
+        </div>
+
+        <!-- Ion track -->
+        <div class="ion-track" id="ion-track">
+          <div class="ion-label">Li⁺ ions →</div>
+          <div id="ions-container" style="position:relative;width:100%;height:100px;"></div>
+          <div class="electron-bar">
+            <div class="electron-fill" id="electron-fill"></div>
+          </div>
+          <div style="font-size:.75rem;color:var(--muted);text-align:center">electron flow (external circuit)</div>
+        </div>
+
+        <!-- Cathode -->
+        <div class="electrode cathode">
+          <div class="electrode-label">Cathode (LFP)</div>
+          <div class="layers" id="cathode-layers">
+            <div class="layer filled"></div><div class="layer filled"></div>
+            <div class="layer filled"></div><div class="layer filled"></div>
+            <div class="layer filled"></div><div class="layer filled"></div>
+            <div class="layer filled"></div><div class="layer filled"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="charge-info" id="charge-info">Press a button to animate the ion movement.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SPECS ════════════════════════════════════════════════ -->
+<section id="specs">
+  <div class="container">
+    <h2>Key Specifications</h2>
+    <div class="specs-grid reveal">
+      <div class="spec-card">
+        <div class="spec-value">3.6 V</div>
+        <div class="spec-label">Nominal Cell Voltage</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-value">100–265</div>
+        <div class="spec-label">Energy Density (Wh/kg)</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-value">500–2 000</div>
+        <div class="spec-label">Charge Cycles (typical)</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-value">~80%</div>
+        <div class="spec-label">Charge Efficiency</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-value">−20→60°C</div>
+        <div class="spec-label">Operating Temperature</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-value">&lt;5%</div>
+        <div class="spec-label">Monthly Self-Discharge</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROS & CONS ═══════════════════════════════════════════ -->
+<section id="pros-cons">
+  <div class="container">
+    <h2>Pros &amp; Cons</h2>
+    <div class="pros-cons-grid reveal">
+      <div class="pros">
+        <h3>Advantages</h3>
+        <ul>
+          <li>High energy density — lightweight &amp; compact</li>
+          <li>Low self-discharge rate</li>
+          <li>No memory effect</li>
+          <li>High charge/discharge efficiency</li>
+          <li>Long cycle life with modern chemistries</li>
+          <li>Wide temperature range</li>
+          <li>Scalable from mAh to MWh</li>
+        </ul>
+      </div>
+      <div class="cons">
+        <h3>Limitations</h3>
+        <ul>
+          <li>Capacity degrades over time</li>
+          <li>Risk of thermal runaway if damaged</li>
+          <li>Requires a Battery Management System</li>
+          <li>Performance drops in extreme cold</li>
+          <li>Contains scarce materials (cobalt, lithium)</li>
+          <li>Recycling infrastructure still maturing</li>
+          <li>Higher upfront cost than lead-acid</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HISTORY ══════════════════════════════════════════════ -->
+<section id="history">
+  <div class="container">
+    <h2>A Brief History</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1970s</div>
+        <div class="tl-title">Stanley Whittingham — First Li Battery</div>
+        <div class="tl-desc">Whittingham at Exxon demonstrated the first rechargeable lithium cell using a TiS₂ cathode and lithium metal anode.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1980</div>
+        <div class="tl-title">John Goodenough — LiCoO₂ Cathode</div>
+        <div class="tl-desc">Goodenough discovered that LiCoO₂ could serve as a high-voltage cathode, unlocking the modern Li-ion chemistry.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1985</div>
+        <div class="tl-title">Akira Yoshino — Graphite Anode</div>
+        <div class="tl-desc">Yoshino replaced the dangerous lithium metal anode with safer carbonaceous material (graphite), enabling commercialisation.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1991</div>
+        <div class="tl-title">Sony — First Commercial Li-ion Cell</div>
+        <div class="tl-desc">Sony shipped the first commercial Li-ion batteries for camcorders, revolutionising portable electronics.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2000s</div>
+        <div class="tl-title">Smartphones &amp; Laptops</div>
+        <div class="tl-desc">Lithium-ion became the de-facto standard for consumer electronics, driving massive investment and cost reductions.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2010s</div>
+        <div class="tl-title">Electric Vehicles &amp; Grid Storage</div>
+        <div class="tl-desc">Tesla and others proved Li-ion could power cars. Grid-scale battery storage projects appeared globally.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2019</div>
+        <div class="tl-title">Nobel Prize in Chemistry</div>
+        <div class="tl-desc">Whittingham, Goodenough &amp; Yoshino shared the Nobel Prize for developing lithium-ion batteries.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2020s+</div>
+        <div class="tl-title">Solid-State &amp; Next-Gen</div>
+        <div class="tl-desc">Solid-state electrolytes, sodium-ion alternatives, and silicon anodes promise even higher energy density and safety.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════════ -->
+<footer>
+  <p>⚡ Lithium Battery Explorer &mdash; built for education. Data based on publicly available literature.</p>
+</footer>
+
+<!-- ═══ SCRIPTS ══════════════════════════════════════════════ -->
+<script>
+/* ─── Particle system ──────────────────────────────────────── */
+(function(){
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize(){
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const N = 60;
+  for(let i=0;i<N;i++) particles.push({
+    x: Math.random()*2000, y: Math.random()*1200,
+    vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3,
+    r: Math.random()*2+1,
+    alpha: Math.random()*.6+.1
+  });
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p=>{
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0) p.x=W; if(p.x>W) p.x=0;
+      if(p.y<0) p.y=H; if(p.y>H) p.y=0;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(0,198,255,${p.alpha})`;
+      ctx.fill();
+    });
+    // draw connecting lines
+    for(let i=0;i<N;i++){
+      for(let j=i+1;j<N;j++){
+        const dx=particles[i].x-particles[j].x;
+        const dy=particles[i].y-particles[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<120){
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle=`rgba(0,198,255,${.15*(1-d/120)})`;
+          ctx.lineWidth=1;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ─── Navbar scroll ───────────────────────────────────────── */
+window.addEventListener('scroll', ()=>{
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+/* ─── Scroll reveal ───────────────────────────────────────── */
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{ threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+/* ─── Timeline reveal ─────────────────────────────────────── */
+const tlObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{ threshold: 0.15 });
+document.querySelectorAll('.tl-item').forEach(el=>tlObserver.observe(el));
+
+/* ─── SVG anatomy interaction ─────────────────────────────── */
+(function(){
+  const svg       = document.getElementById('battery-svg');
+  const tooltip   = document.getElementById('svg-tooltip');
+  const partItems = document.querySelectorAll('.part-item');
+
+  const info = {
+    anode:       { title:'Anode', desc:'Graphite layers store Li⁺ ions during charging. Oxidation occurs here on discharge.' },
+    cathode:     { title:'Cathode', desc:'Lithium metal oxide (e.g. LFP). Reduction occurs here on discharge, releasing energy.' },
+    electrolyte: { title:'Electrolyte', desc:'Liquid/gel medium carrying Li⁺ ions between electrodes. Electronically insulating.' },
+    separator:   { title:'Separator', desc:'Porous membrane preventing physical contact between electrodes while allowing ion transport.' },
+    casing:      { title:'Casing', desc:'Protective shell of steel or aluminium. Provides structural integrity and seals the cell.' },
+  };
+
+  const layerMap = { anode:'#00c6ff', cathode:'#ff6b6b', separator:'#a8ff78', electrolyte:'#ffd740', casing:'#b0bec5' };
+
+  function highlightSvgLayer(part){
+    svg.querySelectorAll('[data-layer]').forEach(el=>{
+      el.style.filter = (el.dataset.layer === part)
+        ? `drop-shadow(0 0 10px ${layerMap[part]||'#fff'}) brightness(1.5)`
+        : 'brightness(0.5)';
+    });
+  }
+  function clearSvgHighlight(){
+    svg.querySelectorAll('[data-layer]').forEach(el=>{ el.style.filter=''; });
+  }
+
+  svg.querySelectorAll('[data-layer]').forEach(el=>{
+    el.addEventListener('mouseenter', function(e){
+      const part = this.dataset.layer;
+      const d = info[part];
+      if(!d) return;
+      tooltip.innerHTML = `<strong>${d.title}</strong><br>${d.desc}`;
+      tooltip.classList.add('visible');
+      highlightSvgLayer(part);
+      // also highlight list item
+      partItems.forEach(li=>li.classList.toggle('active', li.dataset.part===part));
+    });
+    el.addEventListener('mousemove', function(e){
+      const rect = svg.parentElement.getBoundingClientRect();
+      let tx = e.clientX - rect.left + 12;
+      let ty = e.clientY - rect.top  - 20;
+      if(tx + 230 > rect.width) tx = e.clientX - rect.left - 240;
+      tooltip.style.left = tx + 'px';
+      tooltip.style.top  = ty + 'px';
+    });
+    el.addEventListener('mouseleave', function(){
+      tooltip.classList.remove('visible');
+      clearSvgHighlight();
+      partItems.forEach(li=>li.classList.remove('active'));
+    });
+  });
+
+  // clicking a list item highlights svg
+  partItems.forEach(li=>{
+    li.addEventListener('mouseenter', function(){
+      const part = this.dataset.part;
+      highlightSvgLayer(part);
+      partItems.forEach(x=>x.classList.toggle('active', x===this));
+    });
+    li.addEventListener('mouseleave', function(){
+      clearSvgHighlight();
+      partItems.forEach(x=>x.classList.remove('active'));
+    });
+  });
+})();
+
+/* ─── Charge / Discharge animation ────────────────────────── */
+(function(){
+  const btnCharge    = document.getElementById('btn-charge');
+  const btnDischarge = document.getElementById('btn-discharge');
+  const btnReset     = document.getElementById('btn-reset');
+  const info         = document.getElementById('charge-info');
+  const anodeLayers  = Array.from(document.querySelectorAll('#anode-layers .layer'));
+  const cathodeLayers= Array.from(document.querySelectorAll('#cathode-layers .layer'));
+  const electronFill = document.getElementById('electron-fill');
+  const ionsContainer= document.getElementById('ions-container');
+
+  let state     = 0;   // 0=empty anode / full cathode, 8=full anode / empty cathode
+  let animating = false;
+  let rafId     = null;
+  const ionPool = [];
+
+  function setLayers(){
+    anodeLayers .forEach((l,i)=>l.classList.toggle('filled', i < state));
+    cathodeLayers.forEach((l,i)=>l.classList.toggle('filled', i >= state));
+    electronFill.style.width = (state/8*100) + '%';
+  }
+
+  function spawnIon(toRight){
+    const ion = document.createElement('div');
+    ion.className='ion';
+    ionsContainer.appendChild(ion);
+    const w = ionsContainer.offsetWidth || 100;
+    ion.style.left = (toRight ? 0 : w) + 'px';
+    ion.style.top = (Math.random()*70+10)+'px';
+    ion.style.opacity='1';
+    const start = performance.now();
+    const dur   = 900 + Math.random()*300;
+    const startX= toRight ? 0 : w;
+    const endX  = toRight ? w : 0;
+    function tick(now){
+      const t = Math.min((now-start)/dur,1);
+      const ease = t<.5 ? 2*t*t : -1+(4-2*t)*t;
+      ion.style.left = (startX + (endX-startX)*ease) + 'px';
+      if(t<1){ requestAnimationFrame(tick); }
+      else { ion.remove(); }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function step(toRight, callback){
+    if(animating) return;
+    animating = true;
+    let spawned=0;
+    const interval = setInterval(()=>{
+      spawnIon(toRight);
+      spawned++;
+      if(spawned>=3){ clearInterval(interval); }
+    },180);
+    setTimeout(()=>{
+      animating=false;
+      callback();
+    }, 950);
+  }
+
+  btnCharge.addEventListener('click',()=>{
+    if(animating||state>=8) return;
+    btnCharge.classList.add('active');
+    btnDischarge.classList.remove('active');
+    info.textContent='Charging: Li⁺ ions moving from cathode → anode through electrolyte…';
+    step(true,()=>{
+      state = Math.min(state+2,8);
+      setLayers();
+      if(state>=8) info.textContent='Fully charged! All Li⁺ intercalated into the anode graphite.';
+      else info.textContent=`Charging… ${Math.round(state/8*100)}% capacity stored.`;
+      btnCharge.classList.remove('active');
+    });
+  });
+
+  btnDischarge.addEventListener('click',()=>{
+    if(animating||state<=0) return;
+    btnDischarge.classList.add('active');
+    btnCharge.classList.remove('active');
+    info.textContent='Discharging: Li⁺ ions moving from anode → cathode, electrons power the circuit…';
+    step(false,()=>{
+      state = Math.max(state-2,0);
+      setLayers();
+      if(state<=0) info.textContent='Fully discharged! Li⁺ back in the cathode.';
+      else info.textContent=`Discharging… ${Math.round(state/8*100)}% remaining.`;
+      btnDischarge.classList.remove('active');
+    });
+  });
+
+  btnReset.addEventListener('click',()=>{
+    state=0; setLayers();
+    info.textContent='Reset. Press Charge to start.';
+    btnCharge.classList.remove('active');
+    btnDischarge.classList.remove('active');
+    ionsContainer.innerHTML='';
+  });
+
+  setLayers();
+})();
+</script>
+</body>
+</html>
